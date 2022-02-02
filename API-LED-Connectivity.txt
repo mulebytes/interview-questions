@@ -23,13 +23,21 @@
    Whenerver there is an Error in any layer, and if the control is going back calling API.
    Mule Error Handler, will put the error response from PRC api to error.errorMessage.payload, so that EXP layer can capture from that.
    
-   Which means, you need to catch exceptions in all layers and read for error.errorMessage.payload.
+   Which means, you need to catch exceptions in all layers and read for error.errorMessage.payload.   
+
+4. In API LED Connectivity, if System API is down, how are you handling it, are there any retries ?
+   Use Until Successful Scope to retry based on the errors.
+   Example: Use Try/Catch around the connector, Catch Connectivity or Timeout based errors using On-Error-Propagate, so that
+   Until Successful scope can understnad that as a Error event and rety only those type of errors.
+   For all other errors like BadRequest, we can use On Error Continue. Because even if you retry failures related data or transformations
+   those can never be successful.
+
    
-4. How can you streamline or control traffic to your APIs
+5. How can you streamline or control traffic to your APIs
    Apply Rate Limiting Policiy on top your EXP API
    Ex: 100 Requests Per Minute
    
-5. What is the difference between Throttling (Spike Control) and Rate Limiting Policy
+6. What is the difference between Throttling (Spike Control) and Rate Limiting Policy
    Rate Limiting: If you receive excess requests, more than what we have configured in policy, the excess will be rejected or discarded
    Throttling (Spike Control): It will accept Maximum Number of Requests that I have configured in Policiy, But
    whatever the excess requests is has received, it will not reject or discard straight away, it will wait until the OnGoing requests are completed
