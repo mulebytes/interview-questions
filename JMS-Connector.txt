@@ -1,0 +1,14 @@
+JMS Connector:
+
+Consumer Perspective (Read Messages from JMS (ActiveMQ)):
+1. On New Message
+   (This is Listener Processs, which will Establish a Connection with JMS(ActiveMQ) During Application Start, and the Wait for Messages
+   to be loaded on to the Queue).
+   As soon as message loaded, this will receive the Message and forward it Processs block of the Flow.
+   
+   If the Message processing is Successful, then it will Acknowledge JMS to Dequeue the Message.
+   If the Message processing is Failure, then it will Negative-Acknowledge JMS to Make sure it's still there in Pending Messages.
+   
+   This will Register Number of Consumers with JMS (ActiveMQ)
+   
+2. Consume
